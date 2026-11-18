@@ -48,8 +48,24 @@ final class SyncModel {
         }
     }
 
-    /// Plan from the calendar, then make AlarmKit match the plan.
+    /// Launch, returning to the foreground and calendar changes can all ask for a sync at once.
+    /// Run one pass at a time and coalesce requests that arrive meanwhile into one more pass,
+    /// so two passes never schedule the same alarm ID concurrently.
     func sync() async {
+        guard !isSyncing else { needsAnotherPass = true; return }
+        isSyncing = true
+        defer { isSyncing = false }
+        repeat {
+            needsAnotherPass = false
+            await syncPass()
+        } while needsAnotherPass
+    }
+
+    private var isSyncing = false
+    private var needsAnotherPass = false
+
+    /// Plan from the calendar, then make AlarmKit match the plan.
+    private func syncPass() async {
         let events = await calendar.upcomingEvents(days: 7)
         let desired = AlarmPlanner.plan(events: events, rules: rules, now: .now)
         do {

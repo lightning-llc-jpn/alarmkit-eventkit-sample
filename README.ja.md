@@ -8,7 +8,7 @@
 ルールの例：「会議」→ 10 分前に鳴らす。15:00 の「定例会議」には 14:50 のアラームが入り、
 時計アプリのアラームと同じように、消音モードや集中モード中でも止めるまで鳴り続けます。
 
-Swift で約 250 行、依存ライブラリはありません。
+Swift で約 270 行、依存ライブラリはありません。
 
 ## ファイル
 
@@ -38,7 +38,7 @@ Swift で約 250 行、依存ライブラリはありません。
 1. Xcode 26 以降・iOS 26 以降。
 2. `AlarmKitEventKitSample.xcodeproj` を開く（または先に `xcodegen generate`）。
 3. *Signing & Capabilities* で自分のチームを選び、Bundle ID を変える。
-4. 実機で起動してカレンダーとアラームを許可し、10 分少し先に「Meeting」を含む予定を入れて
+4. 実機で起動してカレンダーとアラームを許可し、10 分より少し先に「Meeting」を含む予定を入れて
    **Sync** を押す（キーワードは画面で「会議」などに変えられます）。
 
 テスト：`xcodebuild test -scheme AlarmKitEventKitSample -destination 'platform=iOS Simulator,name=iPhone 17 Pro'`

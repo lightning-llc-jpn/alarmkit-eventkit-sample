@@ -9,7 +9,7 @@ Example rule: *"Meeting" → ring 10 minutes before*. An event called "Team meet
 15:00 gets an alarm at 14:50 that rings like a Clock app alarm — through Silent mode
 and Focus — until you stop it.
 
-About 250 lines of Swift, no dependencies.
+About 270 lines of Swift, no dependencies.
 
 ## Files
 
