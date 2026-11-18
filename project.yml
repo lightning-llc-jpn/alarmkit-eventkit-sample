@@ -1,0 +1,50 @@
+# XcodeGen spec. `brew install xcodegen && xcodegen generate` regenerates the
+# .xcodeproj (the generated project is committed too, so XcodeGen is optional).
+name: AlarmKitEventKitSample
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "26.0"   # AlarmKit requires iOS 26.
+  developmentLanguage: en
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    # Set your own team in Xcode (Signing & Capabilities) before running on a device.
+    DEVELOPMENT_TEAM: ""
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: 1
+
+targets:
+  AlarmKitEventKitSample:
+    type: application
+    platform: iOS
+    sources: [Sources]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.AlarmKitEventKitSample
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleDisplayName: "AlarmKit Sample"
+        INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription: "Reads event titles to find your keywords. Nothing is changed or sent anywhere."
+        INFOPLIST_KEY_NSAlarmKitUsageDescription: "Rings an alarm before calendar events that match your keywords."
+
+  AlarmKitEventKitSampleTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Tests]
+    dependencies:
+      - target: AlarmKitEventKitSample
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  AlarmKitEventKitSample:
+    build:
+      targets:
+        AlarmKitEventKitSample: all
+    test:
+      targets: [AlarmKitEventKitSampleTests]
